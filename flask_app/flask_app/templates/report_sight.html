@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>edit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/edit_recipe.css') }}">
+  <style>
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    form {
+      display: flex;
+      justify-content: space-around;
+    }
+    body {
+            padding: 35px;
+        }
+  </style>
+</head>
+
+<body>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Sasquath Websighting</h1>
+    <div>
+        <h3>{{user.first_name}} {{user.last_name}}</h3>
+    <div> 
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+    </div>   
+
+    
+</div>
+  </div>
+  
+  <h3>Report a Sighting</h3>
+
+  <form action="/create" method="POST">
+    <div class="left">
+      <div class="form-group">
+        <label for="loca">Location:</label>
+        {% with title_error = get_flashed_messages(category_filter=["location"])%}
+        {% for message in title_error %}
+        <p class="col-8 text-danger">{{message}}</p>
+        {% endfor %}
+        {% endwith %}
+        <input name="location" id="loca" class="mb-2"></input> 
+      </div>
+      <div class="form-group">
+        <label for="des">Description:</label>
+        {% with title_error = get_flashed_messages(category_filter=["what_happened"])%}
+        {% for message in title_error %}
+        <p class="col-8 text-danger">{{message}}</p>
+        {% endfor %}
+        {% endwith %}
+        <textarea name="what_happened" id="des" cols="30" rows="2"></textarea>
+      </div>
+      
+
+      <button type="submit" class="btn btn-warning mt-4">Report</button>
+    </div>
+
+    <div class="right">
+      <div class="form-group">
+        <label for="date_made">Date of Siting:</label>
+        {% with title_error = get_flashed_messages(category_filter=["date_of_siting"])%}
+        {% for message in title_error %}
+        <p class="col-8 text-danger">{{message}}</p>
+        {% endfor %}
+        {% endwith %}
+        <input type="date" name="date_made" id="date_made" >
+      </div>
+
+      <p># of Sasquatches:</p>
+      <select class="form-control" id="exampleFormControlSelect1" name="num_sasquatches"> 
+         <option>0</option>
+         <option >1</option>
+         <option >2</option>
+         <option >3</option>
+
+       </select>
+        {% with title_error = get_flashed_messages(category_filter=["num_sasquatches"])%}
+        {% for message in title_error %}
+        <p class="col-8 text-danger">{{message}}</p>
+        {% endfor %}
+        {% endwith %}
+    </div>
+  </form>
+</body>
+
+</html>

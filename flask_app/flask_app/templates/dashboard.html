@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>user show</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+<style>
+    .sightings{
+        border: 2px black solid;
+        overflow: auto;
+        width: 900px;
+        height: 500px;
+        margin-left:25px;
+        padding:10px;
+    }
+    body {
+            padding: 35px;
+        }
+</style>
+</head>
+
+<body>
+    <div class="flex">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Sasquath Websighting</h1>
+            <div>
+                <h3>{{user.first_name}} {{user.last_name}}</h3>
+            <div> 
+                <a href="/new/sighting">Report a Sighting</a>
+                <a href="/logout">Logout</a>
+            </div>
+            </div>   
+
+            
+        </div>
+        <h3>Reported Sightings</h3>
+      
+        <div class="sightings">
+             {% for sighting in sightings %}
+           <div class="info">
+            <p>{{sighting.location}} - {{sighting.date_of_siting.strftime("%B %d, %Y")}}</p>
+            <p>Reported by user number: {{sighting.get_user().full_name()}}</p>
+            <a href="/show/{{sighting.id}}">view</a>
+            {%if session['user_id'] == sighting.user_id%} <a href="/sighting/{{sighting.id}}/edit">edit</a>  <a href="/sighting/{{sighting.id}}/delete">delete </a> {%endif%}
+            <hr>
+            {% endfor %}
+           </div>
+        </div>
+        
+        </div>
+    </div>
+</body>
+
+</html>
